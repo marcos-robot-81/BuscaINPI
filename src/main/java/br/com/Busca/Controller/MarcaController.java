@@ -1,5 +1,6 @@
 package br.com.Busca.Controller;
 
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.Busca.rebozitory.BaixaXML;
 import br.com.Busca.rebozitory.LerXml;
+import br.com.Busca.processos.ProcessoMarca;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -14,12 +17,12 @@ import br.com.Busca.rebozitory.LerXml;
 public class MarcaController {
     
     @PostMapping("/nome")
-    public void busca(@RequestParam String nome){
+    @ResponseBody
+    public List<ProcessoMarca> busca(@RequestParam String nome){
 
         LerXml ler = new LerXml();
         
-        ler.lerMarcaXml(nome);
-
+        return ler.lerMarcaXml(nome);
 
         //BaixaXML b = new BaixaXML();
         //b.BaixaMarca("https://revistas.inpi.gov.br/txt/RM2875.zip");
