@@ -10,9 +10,16 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestClient;
 
 public class BaixaXML {
+
+    @Scheduled(cron = "0/1 0 0 ? 1/1 4/7 *")
+    private void baixa(){
+
+        BaixaMarca("https://revistas.inpi.gov.br/txt/RM2875.zip");
+    }
 
     public void BaixaMarca(String url){
 
