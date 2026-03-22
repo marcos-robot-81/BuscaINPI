@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@RequestMapping("/busca/marca")
+@RequestMapping("/api/busca/marca")
 public class MarcaController {
     
     @PostMapping("/nome")

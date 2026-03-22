@@ -7,18 +7,40 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Enumeration;
+import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestClient;
 
+
 public class BaixaXML {
 
-    @Scheduled(cron = "0/1 0 0 ? 1/1 4/7 *")
+    private int rm;
+    
+    //@Scheduled(cron = "0/1 0 0 ? 1/1 4/7 *")
     private void baixa(){
 
-        BaixaMarca("https://revistas.inpi.gov.br/txt/RM2875.zip");
+        try{
+        File dados = new File("arquivo/ponto.txt");
+        Scanner sca = new Scanner(dados);
+
+            while (sca.hasNextLine()) {
+                String linha = sca.nextLine().trim();
+
+                if(linha.contains("marca")){
+                    this.rm = Integer.parseInt(linha.substring(linha.indexOf("novo="), (linha.indexOf("novo=")+ 4))) + 1;
+                }
+
+                
+            }
+            sca.close();
+        }catch(Exception e){
+            System.err.print(e);
+        }
+        BaixaMarca("https://revistas.inpi.gov.br/txt/RM"+rm+".zip");
+
     }
 
     public void BaixaMarca(String url){
